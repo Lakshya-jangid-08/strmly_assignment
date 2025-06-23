@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom'
 
 function App() {
 
-  const navigate = useNavigate();
   const authRoute = useMatch('/login') || useMatch('/sign-up');
 
   if(authRoute) {

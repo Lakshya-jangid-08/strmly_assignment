@@ -1,5 +1,6 @@
 const Post = require('../Models/post.model');
 const cloudinary = require('cloudinary').v2;
+const streamifier = require('streamifier');
 
 const getPostsController = async (req, res) => {
     try {
@@ -21,11 +22,26 @@ const createPostController = async (req, res) => {
             return res.status(400).json({ message: 'Title, description, and video file are required' });
         }
 
-        const uploadResult = await cloudinary.uploader.upload(req.file.path, {
-            resource_type: "video",
-            folder: "videos"
-        });
+        // Upload video from memory buffer to Cloudinary
+        const uploadStream = () =>
+            new Promise((resolve, reject) => {
+                const stream = cloudinary.uploader.upload_stream(
+                    {
+                        resource_type: "video",
+                        folder: "videos"
+                    },
+                    (error, result) => {
+                        if (result) {
+                            resolve(result);
+                        } else {
+                            reject(error);
+                        }
+                    }
+                );
+                streamifier.createReadStream(req.file.buffer).pipe(stream);
+            });
 
+        const uploadResult = await uploadStream();
         const videoUrl = uploadResult.secure_url;
         console.log("Video uploaded to Cloudinary:", videoUrl);
         
