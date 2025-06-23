@@ -6,11 +6,14 @@ import CreatePostPage from './Pages/CreatePostPage'
 import Home from './Pages/Home'
 import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
-import { useNavigate } from 'react-router-dom'
 
 function App() {
 
-  const authRoute = useMatch('/login') || useMatch('/sign-up');
+  const isLogin = useMatch('/login');
+  const isSignup = useMatch('/sign-up');
+  const authRoute = isLogin || isSignup;
+  const isAuthenticated = localStorage.getItem('token');
+
 
   if(authRoute) {
     return (
@@ -20,8 +23,6 @@ function App() {
       </Routes>
     )
   }
-  
-  const isAuthenticated = localStorage.getItem('token');
   
   return (
     <>

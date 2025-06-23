@@ -49,7 +49,7 @@ function SignupPage() {
                 </div>
                 <p className='mb-3 text-sm'>Already have an account ? <a href='/login' className='cursor-pointer text-sm text-sky-600'>Log in</a></p>
                 <button type='submit' className='w-full text-lg bg-sky-500 text-white p-2 rounded hover:bg-sky-600 transition duration-200'>
-                    Login
+                    Sign up
                 </button>
             </form>
         </div>
