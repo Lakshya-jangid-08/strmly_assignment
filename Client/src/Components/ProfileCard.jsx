@@ -16,7 +16,6 @@ function ProfileCard({setshowCard}) {
 
     const fetchUserData = async () => {
         try {
-            console.log(localStorage.getItem('token'));
             const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/profile`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`

@@ -15,14 +15,12 @@ const getPostsController = async (req, res) => {
 
 const createPostController = async (req, res) => {
     try {
-        console.log("Creating post with data:", req.body);
         
         const { title, description } = req.body;
         if (!title || !description || !req.file) {
             return res.status(400).json({ message: 'Title, description, and video file are required' });
         }
 
-        // Upload video from memory buffer to Cloudinary
         const uploadStream = () =>
             new Promise((resolve, reject) => {
                 const stream = cloudinary.uploader.upload_stream(
@@ -43,7 +41,6 @@ const createPostController = async (req, res) => {
 
         const uploadResult = await uploadStream();
         const videoUrl = uploadResult.secure_url;
-        console.log("Video uploaded to Cloudinary:", videoUrl);
         
         const post = new Post({
             title,
