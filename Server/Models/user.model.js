@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.generateToken = function() {
-    const token = jsonwebtoken.sign({ _id: this._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jsonwebtoken.sign({ _id: this._id }, process.env.JWT_SECRET);
     return token;
 }
 

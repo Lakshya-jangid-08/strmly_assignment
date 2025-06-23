@@ -28,7 +28,7 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path='/create-post' element={isAuthenticated ? <CreatePostPage/> : <LoginPage/>} />
+        <Route path='/create-post' element={isAuthenticated ? <CreatePostPage/> : <Navigate to="/login" replace={true} />} />
         <Route path='/dashboard' element={<Home/>} />
         <Route path='/dashboard/:input' element={<Home/>} />
         <Route path='*' element={<Navigate to="/dashboard" replace={true} />} />
